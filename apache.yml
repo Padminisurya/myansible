@@ -2,17 +2,15 @@
 - hosts: webservers 
   become: True
   tasks:
-    - name: Install packages
+    - name: install apache2
       apt:
-        name: "httpd"
-        state: "present"
-    - name: Start Apache server
-      service:
-        name: httpd
-        state: started
-        enabled: True
-    - name: Deploy static website
-      copy:
-        src: index.html
-        dest: /var/www/html/
+        name: apache2
+        update_cache: yes
+        state: present
+    - name: install php modules
+      apt:
+        name:
+          - php 
+          - libapache2-mod-php 
+          - php-mysql 
 ...
